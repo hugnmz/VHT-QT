@@ -1,0 +1,74 @@
+QMainWindow{
+background-color: gray;
+                                      }
+
+
+#btnExit{
+    color: #FF0000;
+    background-color: yellow;
+    border-radius: 1px;
+    border: 2px solid black;
+    padding: 5px;
+}
+
+#btnExit:pressed{
+    background-color: orange;
+    padding-top:20px;
+    padding-left: 20px;
+}
+
+
+#btnOption{
+    border-radius: 3px;
+    padding: 1px 18px 1px 3px;
+    background: white;
+    min-width: 150px;
+    min-height: 40px;
+}
+
+
+
+#btnOption::drop-down{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left-width: 1px;
+    border-left-color: black;
+    border-left-style: solid;
+
+}
+
+#btnOption::down-arrow {
+image: url(down_arrow.png);
+border: 1px solid #bdc3c7;
+    width: 12px;
+    height: 12px;
+}
+
+#vBar:vertical{
+    min-width: 10px;
+    background: black;
+}
+
+#vBar::handle:vertical{
+    background: yellow;
+    border-radius: 5px;
+    min-height:100px;
+}
+
+#vBar::handle:vertical:hover {
+    background: #95a5a6;
+}
+
+#tableWidget{
+   gridline-color: yellow;
+   background: gray;
+}
+
+#tableWidget::section{
+    background: blue;
+}
+
+#containerFrame{
+    background: gray;
+}

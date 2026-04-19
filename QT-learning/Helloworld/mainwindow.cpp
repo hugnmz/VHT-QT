@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowFlags(Qt::FramelessWindowHint);
+
+setAttribute(Qt::WA_TranslucentBackground);
 }
 
 MainWindow::~MainWindow()

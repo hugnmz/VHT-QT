@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,10 +17,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    networkworker.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    networkworker.h
 
 FORMS += \
     mainwindow.ui
@@ -31,7 +33,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    resource.qrc
-
-DISTFILES += \
-    style.qss
+    assets.qrc
