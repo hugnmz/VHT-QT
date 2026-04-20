@@ -242,6 +242,8 @@ debug/moc_mainwindow.cpp: ../QtServer/mainwindow.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/QTcpServer \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qtcpserver.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qhostaddress.h \
+		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/QUdpSocket \
+		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qudpsocket.h \
 		debug/moc_predefs.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/bin/moc.exe
 	C:\Qt\Qt5.14.2\5.14.2\mingw73_32\bin\moc.exe $(DEFINES) --include C:/Qt_home/VHT-QT/QT-learning/build-QtServer-Desktop_Qt_5_14_2_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/win32-g++ -IC:/Qt_home/VHT-QT/QT-learning/QtServer -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.14.2/Tools/mingw730_32/i686-w64-mingw32/include ..\QtServer\mainwindow.h -o debug\moc_mainwindow.cpp
@@ -465,6 +467,8 @@ debug/main.o: ../QtServer/main.cpp ../QtServer/mainwindow.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/QTcpServer \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qtcpserver.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qhostaddress.h \
+		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/QUdpSocket \
+		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qudpsocket.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QApplication \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qapplication.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qcoreapplication.h \
@@ -601,6 +605,8 @@ debug/mainwindow.o: ../QtServer/mainwindow.cpp ../QtServer/mainwindow.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/QTcpServer \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qtcpserver.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qhostaddress.h \
+		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/QUdpSocket \
+		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qudpsocket.h \
 		ui_mainwindow.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QFile \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QStandardPaths \
@@ -612,15 +618,7 @@ debug/mainwindow.o: ../QtServer/mainwindow.cpp ../QtServer/mainwindow.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdialog.h \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QThread \
 		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qthread.h \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QMetaObject \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/QSslSocket \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qsslsocket.h \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qsslerror.h \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qsslcertificate.h \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qcryptographichash.h \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qdatetime.h \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork/qssl.h \
-		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QFlags
+		../../../../Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QMetaObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\QtServer\mainwindow.cpp
 
 debug/networkworker.o: ../QtServer/networkworker.cpp ../QtServer/NetworkWorker.h \

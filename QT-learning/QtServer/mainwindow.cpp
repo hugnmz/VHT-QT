@@ -20,6 +20,11 @@ MainWindow::MainWindow(QWidget *parent)
         connect(server, &QTcpServer::newConnection, this, &MainWindow::newConnection);
 
     }
+
+    m_updSocket = new QUdpSocket(this);
+    m_updSocket->bind(QHostAddress::AnyIPv4, 8085);
+    connect(m_updSocket, &QUdpSocket::readyRead, this, &MainWindow::readUdpData);
+
 }
 
 MainWindow::~MainWindow()
@@ -140,4 +145,23 @@ void MainWindow::refresH(){
     foreach(qintptr id, m_workers.keys()){
             ui->receiver->addItem(QString::number(id));
         }
+}
+
+void MainWindow::readUdpData(){
+    while(m_updSocket->hasPendingDatagrams()){
+        QByteArray datagrams;
+        datagrams.resize(m_updSocket->pendingDatagramSize());
+
+        m_updSocket->readDatagram(datagrams.data(), datagrams.size());
+
+
+        QDataStream in(&datagrams, QIODevice::ReadOnly);
+        in.setVersion(QDataStream::Qt_5_14);
+
+        double cpu; int ram;
+        in >> cpu >> ram;
+
+        ui->barCpu->setValue(cpu);
+        ui->barRam->setValue(ram);
+    }
 }

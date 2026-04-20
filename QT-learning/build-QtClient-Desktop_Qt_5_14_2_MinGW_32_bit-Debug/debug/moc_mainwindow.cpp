@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[16];
-    char stringdata0[178];
+    QByteArrayData data[19];
+    char stringdata0[216];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -47,14 +47,18 @@ QT_MOC_LITERAL(11, 109, 7), // "content"
 QT_MOC_LITERAL(12, 117, 20), // "on_btnAttach_clicked"
 QT_MOC_LITERAL(13, 138, 14), // "displayMessage"
 QT_MOC_LITERAL(14, 153, 3), // "str"
-QT_MOC_LITERAL(15, 157, 20) // "processIncommingFile"
+QT_MOC_LITERAL(15, 157, 20), // "processIncommingFile"
+QT_MOC_LITERAL(16, 178, 11), // "getCpuUsage"
+QT_MOC_LITERAL(17, 190, 11), // "getRamUsage"
+QT_MOC_LITERAL(18, 202, 13) // "sendCpuAndRam"
 
     },
     "MainWindow\0newMessage\0\0readSocket\0"
     "discardSocket\0on_btnMess_clicked\0"
     "sendData\0QTcpSocket*\0socket\0type\0"
     "fileName\0content\0on_btnAttach_clicked\0"
-    "displayMessage\0str\0processIncommingFile"
+    "displayMessage\0str\0processIncommingFile\0"
+    "getCpuUsage\0getRamUsage\0sendCpuAndRam"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,7 +68,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -72,16 +76,19 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   54,    2, 0x06 /* Public */,
+       1,    1,   69,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    0,   57,    2, 0x0a /* Public */,
-       4,    0,   58,    2, 0x0a /* Public */,
-       5,    0,   59,    2, 0x0a /* Public */,
-       6,    4,   60,    2, 0x0a /* Public */,
-      12,    0,   69,    2, 0x0a /* Public */,
-      13,    1,   70,    2, 0x0a /* Public */,
-      15,    2,   73,    2, 0x0a /* Public */,
+       3,    0,   72,    2, 0x0a /* Public */,
+       4,    0,   73,    2, 0x0a /* Public */,
+       5,    0,   74,    2, 0x0a /* Public */,
+       6,    4,   75,    2, 0x0a /* Public */,
+      12,    0,   84,    2, 0x0a /* Public */,
+      13,    1,   85,    2, 0x0a /* Public */,
+      15,    2,   88,    2, 0x0a /* Public */,
+      16,    0,   93,    2, 0x0a /* Public */,
+      17,    0,   94,    2, 0x0a /* Public */,
+      18,    0,   95,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    2,
@@ -94,6 +101,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   14,
     QMetaType::Void, QMetaType::QString, QMetaType::QByteArray,   10,   11,
+    QMetaType::Double,
+    QMetaType::Double,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -112,6 +122,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->on_btnAttach_clicked(); break;
         case 6: _t->displayMessage((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 7: _t->processIncommingFile((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QByteArray(*)>(_a[2]))); break;
+        case 8: { double _r = _t->getCpuUsage();
+            if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
+        case 9: { double _r = _t->getRamUsage();
+            if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
+        case 10: _t->sendCpuAndRam(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -166,13 +181,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 11;
     }
     return _id;
 }

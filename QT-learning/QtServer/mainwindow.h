@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QTcpSocket>
 #include <QTcpServer>
+#include <QUdpSocket>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,8 +26,10 @@ private slots:
 
     void displayMessage(const QString &mess);
     void refresH();
+    void readUdpData();
 
 private:
+    QUdpSocket *m_updSocket;
     QMap<qintptr, NetworkWorker*> m_workers;
     QTcpServer *server;
     QSet<QTcpSocket*> m_socket;

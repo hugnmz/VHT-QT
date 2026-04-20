@@ -14,9 +14,11 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
@@ -30,6 +32,9 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
+    QProgressBar *barRam;
+    QLabel *lblCpu;
+    QProgressBar *barCpu;
     QTextBrowser *textBrowser_receivedMessages;
     QGridLayout *gridLayout_2;
     QPushButton *btnMess;
@@ -37,6 +42,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QComboBox *receiver;
     QLineEdit *inputMess;
+    QLabel *lblRam;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -45,7 +51,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(401, 358);
+        MainWindow->resize(582, 482);
         MainWindow->setStyleSheet(QString::fromUtf8(""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
@@ -53,6 +59,23 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        barRam = new QProgressBar(centralWidget);
+        barRam->setObjectName(QString::fromUtf8("barRam"));
+        barRam->setValue(24);
+
+        gridLayout->addWidget(barRam, 5, 0, 1, 1);
+
+        lblCpu = new QLabel(centralWidget);
+        lblCpu->setObjectName(QString::fromUtf8("lblCpu"));
+
+        gridLayout->addWidget(lblCpu, 2, 0, 1, 1);
+
+        barCpu = new QProgressBar(centralWidget);
+        barCpu->setObjectName(QString::fromUtf8("barCpu"));
+        barCpu->setValue(24);
+
+        gridLayout->addWidget(barCpu, 3, 0, 1, 1);
+
         textBrowser_receivedMessages = new QTextBrowser(centralWidget);
         textBrowser_receivedMessages->setObjectName(QString::fromUtf8("textBrowser_receivedMessages"));
         textBrowser_receivedMessages->setStyleSheet(QString::fromUtf8(""));
@@ -99,10 +122,15 @@ public:
 
         gridLayout->addLayout(gridLayout_2, 1, 0, 1, 1);
 
+        lblRam = new QLabel(centralWidget);
+        lblRam->setObjectName(QString::fromUtf8("lblRam"));
+
+        gridLayout->addWidget(lblRam, 4, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 401, 21));
+        menuBar->setGeometry(QRect(0, 0, 582, 26));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -119,10 +147,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "QTCPServer", nullptr));
+        lblCpu->setText(QCoreApplication::translate("MainWindow", "M\341\273\251c ti\303\252u th\341\273\245 c\341\273\247a CPU: ", nullptr));
         btnMess->setText(QCoreApplication::translate("MainWindow", "Send Message", nullptr));
         btnAttach->setText(QCoreApplication::translate("MainWindow", "Send Attachment", nullptr));
         receiver->setItemText(0, QCoreApplication::translate("MainWindow", "Broadcast", nullptr));
 
+        lblRam->setText(QCoreApplication::translate("MainWindow", "M\341\273\251c ti\303\252u th\341\273\245 c\341\273\247a RAM: ", nullptr));
     } // retranslateUi
 
 };

@@ -28,7 +28,6 @@ void NetworkWorker::readData(){
     // xác định đến từ socket nào
     QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
 
-
     QByteArray buffer;
 
     // gắn data stream vào socket

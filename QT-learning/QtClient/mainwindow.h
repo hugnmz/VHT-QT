@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QTcpSocket>
 #include <QSslSocket>
+#include <windows.h>
+#include <QUdpSocket>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,14 +25,17 @@ signals:
 
 public slots:
     void readSocket();
-     void discardSocket();
+    void discardSocket();
     void on_btnMess_clicked();
     void sendData(QTcpSocket *socket, QString type, QString fileName, QByteArray content);
     void on_btnAttach_clicked();
     void displayMessage(const QString& str);
     void processIncommingFile(QString fileName, QByteArray content);
-
+    double getCpuUsage();
+    double getRamUsage();
+    void sendCpuAndRam();
 private:
+    QUdpSocket *m_udpSocket;
     QTcpSocket *socket;
     Ui::MainWindow *ui;
 };

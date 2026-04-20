@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QMessageBox>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     socket = new QTcpSocket(this);
 
+    m_udpSocket = new QUdpSocket(this);
     // kết nối tín hiệu trước khi gọi connect vs host
         connect(socket, &QTcpSocket::connected, [this](){
             ui->statusBar->showMessage("Kết nối bảo mật thành công!");
@@ -23,6 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(socket, &QTcpSocket::disconnected, this, &MainWindow::discardSocket);
 
     socket->connectToHost("127.0.0.1", 8085);
+
+
+    QTimer *time = new QTimer(this);
+    connect(time, &QTimer::timeout, this, &MainWindow::sendCpuAndRam);
+    time->start(1000); // gui moi 1 giay
 }
 
 MainWindow::~MainWindow()
@@ -141,5 +148,63 @@ void MainWindow::discardSocket(){
     socket = nullptr;
 
     ui->statusBar->showMessage("Disconnnected");
+}
+
+double MainWindow::getCpuUsage(){
+
+
+    static ULONGLONG lastIdleTime = 0, lastKernelTime =0, lastUserTime = 0;
+    FILETIME idleTime, kernelTime, userTime; // filetime đếm 100ns mỗi lần
+
+    if(!GetSystemTimes(&idleTime, &kernelTime, &userTime)) return 0;
+
+    // chuyển dạng FILETIME sang ULONGLONG
+    auto ft2ull = [](const FILETIME& ft){
+        ULARGE_INTEGER uli;
+        uli.LowPart = ft.dwLowDateTime;
+        uli.HighPart = ft.dwHighDateTime;
+        ULONGLONG result = uli.QuadPart;
+
+        return result;
+    };
+
+    ULONGLONG nowIdle = ft2ull(idleTime);
+    ULONGLONG nowKernel = ft2ull(kernelTime);
+    ULONGLONG nowUser = ft2ull(userTime);
+
+    // tính độ chênh lệch giữa 2 thời điểm
+    ULONGLONG diffIdle = nowIdle - lastIdleTime;
+    ULONGLONG diffKernel = nowKernel - lastKernelTime;
+    ULONGLONG diffUser = nowUser - lastUserTime;
+    ULONGLONG diffTotal = diffKernel + diffUser;
+
+        // Lưu lại giá trị cho lần gọi sau
+        lastIdleTime = nowIdle;
+        lastKernelTime = nowKernel;
+        lastUserTime = nowUser;
+
+        if (diffTotal == 0) return 0;
+
+        // return ve % CPU dang hd
+        return (double)(diffTotal - diffIdle) * 100/diffTotal;
+}
+
+double MainWindow::getRamUsage() {
+    MEMORYSTATUSEX memInfo;
+    memInfo.dwLength = sizeof(MEMORYSTATUSEX);
+    GlobalMemoryStatusEx(&memInfo);
+    return (double)memInfo.dwMemoryLoad;
+}
+
+void MainWindow::sendCpuAndRam(){
+    double cpu = getCpuUsage();
+    double ram = getRamUsage();
+
+    QByteArray data;
+    QDataStream out(&data, QIODevice::WriteOnly);
+
+    out << cpu << ram;
+
+    m_udpSocket->writeDatagram(data, QHostAddress("127.0.0.1"), 8085);
 }
 
