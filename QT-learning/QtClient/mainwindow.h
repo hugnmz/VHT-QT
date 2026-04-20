@@ -31,7 +31,7 @@ public slots:
     void processIncommingFile(QString fileName, QByteArray content);
 
 private:
-    QSslSocket *socket;
+    QTcpSocket *socket;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

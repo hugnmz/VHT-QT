@@ -12,22 +12,17 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
-    socket = new QSslSocket(this);
-    socket->setPeerVerifyMode(QSslSocket::VerifyNone); //  CHấp nhận cert tự kí từ server
+    socket = new QTcpSocket(this);
 
     // kết nối tín hiệu trước khi gọi connect vs host
-    connect(socket, &QSslSocket::connected, [this](){
-            ui->statusBar->showMessage("Đã kết nối vật lý, đang bắt tay SSL...");
-        });
-
-        connect(socket, &QSslSocket::encrypted, [this](){
+        connect(socket, &QTcpSocket::connected, [this](){
             ui->statusBar->showMessage("Kết nối bảo mật thành công!");
         });
     connect(this, &MainWindow::newMessage, this, &MainWindow::displayMessage);
-    connect(socket, &QSslSocket::readyRead, this, &MainWindow::readSocket);
-    connect(socket, &QSslSocket::disconnected, this, &MainWindow::discardSocket);
+    connect(socket, &QTcpSocket::readyRead, this, &MainWindow::readSocket);
+    connect(socket, &QTcpSocket::disconnected, this, &MainWindow::discardSocket);
 
-    socket->connectToHostEncrypted("127.0.0.1", 8085);
+    socket->connectToHost("127.0.0.1", 8085);
 }
 
 MainWindow::~MainWindow()

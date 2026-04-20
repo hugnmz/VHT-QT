@@ -5,7 +5,6 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QDataStream>
-#include <QSslSocket>
 
 class NetworkWorker : public QObject{
     Q_OBJECT
@@ -19,8 +18,6 @@ public slots:
     void readData();
     void sendData(QString type, QString fileName, QByteArray content);
     void onDisconnected();
-    void onEncrypted();
-    void onSslErrors(const QList<QSslError> &errors);
 
 signals:
     void messageReceived(QString msg); // Gửi tin nhắn về UI để hiển thị
@@ -29,7 +26,7 @@ signals:
     void encrypted();
 private:
     qintptr m_socketDescriptor;
-    QSslSocket *m_socket;
+    QTcpSocket *m_socket;
 };
 
 #endif // NETWORKWORKER_H

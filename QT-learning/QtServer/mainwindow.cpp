@@ -8,7 +8,6 @@
 #include <QFileDialog>
 #include <QThread>
 #include <QMetaObject>
-#include <QSslSocket>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -37,11 +36,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::newConnection(){
     while (server->hasPendingConnections()) {
-        QSslSocket *sslSocket = qobject_cast<QSslSocket*>(server->nextPendingConnection());
-        sslSocket->setLocalCertificate("server.crt");
-        sslSocket->setPrivateKey("server.key");
-        sslSocket->startServerEncryption(); // Bắt đầu mã hóa
-        qintptr descriptor = sslSocket->socketDescriptor();
+        QTcpSocket *so = qobject_cast<QTcpSocket*>(server->nextPendingConnection());
+        qintptr descriptor = so->socketDescriptor();
 
         QThread *thread = new QThread();
         NetworkWorker *w = new NetworkWorker(descriptor);
@@ -53,7 +49,6 @@ void MainWindow::newConnection(){
 
         connect(thread, &QThread::started, w, &NetworkWorker::process);
         connect(w, &NetworkWorker::messageReceived, this, &MainWindow::displayMessage);
-
         connect(w, &NetworkWorker::finished, thread, &QThread::quit);
         connect(w, &NetworkWorker::finished, w, &QObject::deleteLater);
         connect(thread, &QThread::finished, thread, &QObject::deleteLater);

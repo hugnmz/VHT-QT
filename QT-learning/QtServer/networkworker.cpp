@@ -10,33 +10,19 @@ NetworkWorker::NetworkWorker(qintptr socketDescriptor, QObject *parent)
 // khởi tạo socket
 void NetworkWorker::process(){
 
-    m_socket = new QSslSocket();
+    m_socket = new QTcpSocket();
 
     if(!m_socket->setSocketDescriptor(m_socketDescriptor)){
         emit finished();
         return;
     }
 
-    m_socket->setLocalCertificate(":/ssl/server.crt");
-    m_socket->setPrivateKey(":/ssl/server.key");
-
-    connect(m_socket, &QSslSocket::encrypted, this, &NetworkWorker::onEncrypted);
-    connect(m_socket, QOverload<const QList<QSslError> &>::of(&QSslSocket::sslErrors),
-                this, &NetworkWorker::onSslErrors);
     connect(m_socket, &QTcpSocket::readyRead, this, &NetworkWorker::readData);
     connect(m_socket, &QTcpSocket::disconnected, this, &NetworkWorker::onDisconnected);
 
-    m_socket->startServerEncryption();
+
 }
 
-void NetworkWorker::onEncrypted() {
-    emit messageReceived(QString("Client %1 đã thiết lập kết nối bảo mật SSL.").arg(m_socketDescriptor));
-}
-
-void NetworkWorker::onSslErrors(const QList<QSslError> &errors) {
-    // Trong môi trường test với chứng chỉ tự ký (Self-signed)
-    m_socket->ignoreSslErrors();
-}
 
 void NetworkWorker::readData(){
     // xác định đến từ socket nào
@@ -93,10 +79,8 @@ void NetworkWorker::readData(){
 
 // Giữ nguyên logic sendData của bạn nhưng áp dụng cho m_socket nội bộ
 void NetworkWorker::sendData(QString type, QString fileName, QByteArray content) {
-    if (!m_socket || m_socket->mode() != QSslSocket::SslServerMode) return;
+    if (!m_socket || m_socket->state() != QTcpSocket::ConnectedState) return;
 
-    // Chỉ gửi khi đã mã hóa xong
-    if (!m_socket->isEncrypted()) return;
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_14);
